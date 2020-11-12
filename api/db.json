@@ -1,0 +1,35 @@
+{
+    "tarefas": [
+        {
+            "id": 1,
+            "categoria_id": 1,
+            "descricao": "Limpar sala de estar",
+            "data_limite": "2020-11-13",
+            "concluido": true
+        },
+        {
+            "id": 2,
+            "categoria_id": 2,
+            "descricao": "Estudar Angular",
+            "data_limite": "2020-11-13",
+            "concluido": false
+        },
+        {
+            "id": 3,
+            "categoria_id": 2,
+            "descricao": "Estudar JS",
+            "data_limite": "2020-11-13",
+            "concluido": false
+        }
+    ],
+    "categorias": [
+        {
+            "id": 1,
+            "nome": "Casa"
+        },
+        {
+            "id": 2,
+            "nome": "Estudo"
+        }
+    ]
+}
