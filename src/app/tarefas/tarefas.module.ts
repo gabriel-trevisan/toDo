@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { TarefaListComponent } from './tarefa-list/tarefa-list.component';
 import { TarefaComponent } from './tarefa/tarefa.component';
+import { FiltrarPorDescricao } from './tarefa-list/filtrar-por-descricao.pipe';
 
 @NgModule({
   declarations: [
     TarefaListComponent,
-    TarefaComponent
+    TarefaComponent,
+    FiltrarPorDescricao
   ],
   exports: [
     TarefaComponent

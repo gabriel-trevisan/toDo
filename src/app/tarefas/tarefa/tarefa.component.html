@@ -23,14 +23,14 @@
   </div>
 
   <div class="text-left mt-3 mb-3">
-      <i class="fa fa-search mr-1"></i><input
-            class="rounded"
-            type="search"
-            placeholder="Buscar tarefas..."
-            autofocus
-            (keyup)="onKey($event)"
-            >
+      <i class="fa fa-search mr-1"></i>
+      <input
+        class="rounded"
+        type="search"
+        placeholder="Buscar tarefas..."
+        (keyup)="filter = $event.target.value"
+      >
   </div>
-  <todo-tarefa-list [tarefas]="tarefas"></todo-tarefa-list>
+  <todo-tarefa-list [tarefas]="tarefas | filtrarPorDescricao: filter"></todo-tarefa-list>
 
 </div>

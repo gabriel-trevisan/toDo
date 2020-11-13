@@ -19,6 +19,7 @@ export class TarefaComponent implements OnInit {
     tarefaForm: FormGroup;
     categorias: Categoria[] = [];
     tarefas: Tarefa[] = [];
+    filter: string = '';
 
     constructor(
         private http: HttpClient, 
