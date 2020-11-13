@@ -1,20 +1,36 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Data Limite</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let tarefa of tarefas">
-      <th scope="row">{{tarefa.id}}</th>
-      <td>{{tarefa.categoria}}</td>
-      <td>{{tarefa.descricao}}</td>
-      <td>{{tarefa.data_limite}}</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <h1 class="mb-5">{{title}}</h1>
+
+  <div class="card mb-2">
+    <div class="card-body">
+      <form [formGroup]="tarefaForm" class="form-inline d-flex justify-content-center" (submit)="inserirTarefa($event)">
+        <label for="inputCategoria">Categoria</label>
+        <select formControlName="categoria" id="inputCategoria" class="form-control mx-sm-3">
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</option>
+        </select>
+        <div class="form-group">
+          <label for="inputDescricao">Descrição</label>
+          <input formControlName="descricao" type="text" class="form-control mx-sm-3" id="inputDescricao" value="" placeholder="Descrição">
+        </div>
+        <div class="form-group mx-sm-3">
+          <label for="inputDataLimite">Data Limite</label>
+          <input formControlName="data_limite" type="date" class="form-control mx-sm-3" id="inputDataLimite" placeholder="Data Limite">
+        </div>
+        <input formControlName="concluido" type="hidden" class="form-control mx-sm-3" id="inputconcluido" placeholder="concluido">
+        <button type="submit" class="btn btn-primary">Inserir</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="text-left mt-3 mb-3">
+      <i class="fa fa-search mr-1"></i><input
+            class="rounded"
+            type="search"
+            placeholder="Buscar tarefas..."
+            autofocus
+            (keyup)="onKey($event)"
+            >
+  </div>
+  <todo-tarefa-list [tarefas]="tarefas"></todo-tarefa-list>
+
+</div>

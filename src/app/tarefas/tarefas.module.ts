@@ -12,7 +12,7 @@ import { TarefaComponent } from './tarefa/tarefa.component';
     TarefaComponent
   ],
   exports: [
-    TarefaListComponent
+    TarefaComponent
   ],
   imports: [
     CommonModule,
