@@ -1,18 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 
-import { TarefasComponent } from './tarefas/tarefas.component';
+import { TarefasModule } from './tarefas/tarefas.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TarefasComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    TarefasModule
   ],
   providers: [],
   bootstrap: [AppComponent]
