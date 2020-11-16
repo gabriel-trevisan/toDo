@@ -6,6 +6,8 @@ import { TarefaService } from './tarefa.service';
 import { Tarefa } from '../tarefa/tarefa';
 import { CategoriaService } from '../../categorias/categoria/categoria.service';
 import { Categoria } from '../../categorias/categoria/categoria';
+import { forkJoin } from "rxjs";
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'todo-tarefa',
@@ -31,29 +33,24 @@ export class TarefaComponent implements OnInit {
     ngOnInit(): void {
 
         this.tarefaForm = this.formBuilder.group({
-            categoria: [''],
+            categoria_id: [],
             descricao: [''],
             data_limite: [''],
             concluido : [false]
         })
 
-        this.tarefaService
-            .listarTarefas()
-            .subscribe(tarefas => this.tarefas = tarefas);
-
         this.categoriaService
             .listarCategorias()
             .subscribe(categorias => this.categorias = categorias);
-    }
 
-    onKey(event: any) {
-        let filter = '' ;
-        filter += event.target.value;
+        forkJoin([
+            this.tarefaService.listarTarefas(),
+            this.categoriaService.listarCategorias()
+        ]).pipe(map(([tarefas, categorias]) => {
+                return this.mudarCategoriaIdParaNome(tarefas, categorias);
+            })
+        ).subscribe(result => this.tarefas = result);
 
-        /*this.tarefas = this.tarefasCache.filter(tarefa => {
-            let reg = new RegExp(filter, 'i');
-            return tarefa.descricao.match(reg);
-        });*/
     }
 
     inserirTarefa(event: any) {
@@ -65,12 +62,24 @@ export class TarefaComponent implements OnInit {
         .post<any>('http://localhost:3000/tarefas', formValue).subscribe({
             next: data => {
                 this.tarefas.push(data);
+                this.tarefas = this.mudarCategoriaIdParaNome(this.tarefas, this.categorias);
             },
             error: error => {
                 console.error(error.message);
             }
         });
 
+    }
+
+    mudarCategoriaIdParaNome(tarefas: Tarefa[], categorias: Categoria[]): Tarefa[] {
+        tarefas.forEach(tarefa => {
+            categorias.forEach(categoria => {
+                if(tarefa.categoria_id == categoria.id){
+                    tarefa.categoria = categoria.nome;
+                }
+            })
+        });
+        return tarefas;
     }
 
 }
